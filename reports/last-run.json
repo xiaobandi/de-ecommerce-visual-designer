@@ -1,7 +1,7 @@
 {
   "repo": "de-ecommerce-visual-designer",
   "kind": "employee",
-  "run_at": "2026-09-30T23:54:20+08:00",
+  "run_at": "2026-10-01T10:19:17+08:00",
   "cases": 209,
   "passed": 209,
   "failed": 0,
@@ -32,5 +32,14 @@
     }
   },
   "skipped": [],
-  "failures": []
+  "failures": [],
+  "suites_run": [
+    "structure",
+    "contract",
+    "scenario",
+    "script",
+    "doc",
+    "compliance"
+  ],
+  "full": true
 }

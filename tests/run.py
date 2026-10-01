@@ -25,13 +25,18 @@
   本套件当场发现。
 
 用法：
-  python3 tests/run.py                            # 全量
+  python3 tests/run.py                            # 全量，只在终端输出
   python3 tests/run.py --suite scenario           # 单套件
   python3 tests/run.py --suite script             # 只跑共享脚本自测
   python3 tests/run.py --suite doc                # 只跑文档命令可执行性
   python3 tests/run.py --filter wf-ecom-scout     # 按 slug 过滤
-  python3 tests/run.py --json reports/last.json   # 落盘报告
+  python3 tests/run.py --json reports/last.json   # 落盘报告（不传则不写文件）
 退出码：0 全通过；1 有失败。
+
+关于落盘：默认**不写文件**。仓里提交的 `reports/last-run.json` 是全量快照，
+只有 tools/run_all_tests.py 才会写它。若默认就往那儿写，随手跑一个单套件
+就会把已提交的全量报告覆盖成单套件结果，工作区变脏且真假难辨。
+报告里的 `suites_run` / `full` 两个字段用来标明这份报告覆盖了几个套件。
 """
 
 from __future__ import annotations
@@ -673,7 +678,11 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--suite", choices=list(SUITES), help="只跑指定套件")
     ap.add_argument("--filter", default=None, help="按 slug 过滤")
-    ap.add_argument("--json", default="reports/last-run.json")
+    # 默认不落盘。原先默认写 reports/last-run.json，导致"只想看一眼单套件"
+    # 也会把仓里已提交的**全量**报告覆盖成单套件结果——工作区因此变脏，
+    # 且肉眼分不出"这 3 条通过"是单套件还是全量。要落盘就显式给路径。
+    ap.add_argument("--json", default=None,
+                    help="把结果写入该路径；不传则只在终端输出、不写文件")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
 
@@ -711,18 +720,30 @@ def main() -> int:
     for s, (t, f) in by_suite.items():
         print(f"  {s:11s} {t - f}/{t}")
 
-    out = Path(args.json)
-    if not out.is_absolute():
-        out = ROOT / out
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps({
-        "repo": ROOT.name, "kind": repo_kind(), "run_at": now,
-        "cases": total, "passed": total - len(failed), "failed": len(failed),
-        "by_suite": {k: {"total": v[0], "failed": v[1]} for k, v in by_suite.items()},
-        "skipped": res.skipped,
-        "failures": failed,
-    }, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"\n报告：{out.relative_to(ROOT)}")
+    if args.json:
+        out = Path(args.json)
+        if not out.is_absolute():
+            out = ROOT / out
+        out.parent.mkdir(parents=True, exist_ok=True)
+        suites_run = [s for s in SUITES if not args.suite or s == args.suite]
+        out.write_text(json.dumps({
+            "repo": ROOT.name, "kind": repo_kind(), "run_at": now,
+            "cases": total, "passed": total - len(failed), "failed": len(failed),
+            "by_suite": {k: {"total": v[0], "failed": v[1]} for k, v in by_suite.items()},
+            "skipped": res.skipped,
+            "failures": failed,
+            # 显式记录本次跑了哪些套件。单套件报告与全量报告字段完全一样，
+            # 只靠数字区分不了；标了 full 才能一眼看出这份报告能不能代表全仓。
+            "suites_run": suites_run,
+            "full": len(suites_run) == len(SUITES),
+        }, ensure_ascii=False, indent=2), encoding="utf-8")
+        try:
+            shown = out.relative_to(ROOT)
+        except ValueError:
+            shown = out
+        print(f"\n报告：{shown}")
+    elif not args.quiet:
+        print("\n（未指定 --json，本次未落盘报告；全量报告请走 tools/run_all_tests.py）")
     return 1 if failed else 0
 
 
