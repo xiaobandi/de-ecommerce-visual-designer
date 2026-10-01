@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>平台规格适配（图像） · 项目说明</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+      --brand:#0f766e;--brand-soft:#f0fdfa;--code-bg:#f3f4f6;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-size:15px;line-height:1.78;
+     font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);backdrop-filter:blur(8px);
+        border-bottom:1px solid var(--line);padding:10px 24px;display:flex;gap:12px;align-items:center;font-size:13px}
+.topbar a{color:var(--brand);text-decoration:none;font-weight:600}
+.topbar .name{color:var(--muted)}
+.wrap{max-width:920px;margin:0 auto;padding:28px 24px 80px}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:38px 46px;
+     box-shadow:0 1px 3px rgba(0,0,0,.04)}
+h1{font-size:27px;margin:0 0 10px;padding-bottom:14px;border-bottom:2px solid var(--brand)}
+h2{font-size:20px;margin:34px 0 12px;padding-left:12px;border-left:4px solid var(--brand)}
+h3{font-size:17px;margin:24px 0 8px}
+h4{font-size:15px;margin:18px 0 6px;color:#374151}
+a{color:var(--brand)}
+code{background:var(--code-bg);padding:2px 6px;border-radius:4px;font-size:13px;
+     font-family:"SF Mono",Menlo,Consolas,monospace}
+pre{background:#0f172a;color:#e2e8f0;padding:16px 18px;border-radius:10px;overflow-x:auto;line-height:1.62}
+pre code{background:none;color:inherit;padding:0;font-size:12.5px}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+th{background:var(--brand-soft);text-align:left}
+th,td{border:1px solid var(--line);padding:9px 12px;vertical-align:top}
+tr:nth-child(even) td{background:#fafafa}
+blockquote{margin:14px 0;padding:11px 18px;background:var(--brand-soft);
+           border-left:4px solid var(--brand);border-radius:0 8px 8px 0;color:#475569}
+blockquote p{margin:4px 0}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;margin:14px 0;
+    box-shadow:0 1px 3px rgba(0,0,0,.06)}
+hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+ul,ol{padding-left:26px}li{margin:5px 0}
+.hero{background:linear-gradient(135deg,#0f766e,#0d9488 55%,#14b8a6);color:#fff;
+      border-radius:16px;padding:32px 36px;margin-bottom:24px}
+.hero h1{border:none;padding:0;margin:0 0 8px;font-size:27px;color:#fff}
+.hero p{margin:4px 0;opacity:.95;font-size:14px}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.42);
+       border-radius:999px;padding:3px 12px;font-size:12px;margin:10px 8px 0 0}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 26px 24px;
+        margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:12px;
+      padding:15px 17px;text-decoration:none;color:var(--text);background:#fff;border-top:3px solid var(--brand);
+      transition:.15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,118,110,.13)}
+.ct{font-weight:700;font-size:15px}
+.cd{font-size:13px;color:var(--muted);line-height:1.6}
+.cf{font-size:11px;color:#9ca3af;font-family:"SF Mono",Menlo,monospace}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.shot{text-decoration:none;color:var(--text);border:1px solid var(--line);border-radius:12px;
+      overflow:hidden;background:#fff}
+.shot img{margin:0;border:none;border-radius:0;box-shadow:none;display:block}
+.cap{padding:10px 14px;font-size:12.5px;color:#475569}
+.grade{display:inline-block;border-radius:8px;padding:4px 12px;font-size:13px;font-weight:700}
+.g-A{background:#dcfce7;color:#15803d;border:1px solid #86efac}
+.g-B{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
+.g-C{background:#fef3c7;color:#b45309;border:1px solid #fcd34d}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
+</style></head>
+<body><div class="topbar"><a href="index.html">← 交付物导航</a><span class="name">平台规格适配（图像）</span><span class="name" style="margin-left:auto">platform-spec-adapter</span></div><div class="wrap"><div class="doc">
+<h1>平台规格适配（图像）</h1>
+<blockquote>把一套主素材按各平台尺寸与比例要求适配，输出规格清单与适配参数，避免反复返工</blockquote>
+<p>&gt;</p>
+<blockquote>L1 原子技能　·　复杂度 M　·　阶段 P1　·　可见性 platform_shared　·　版本 v1.0.0</blockquote>
+<p><img src="docs/images/04-terminal-run.png" alt="真实效果"></p>
+<p><em>环境能力探测（真实运行）。本技能为纯提示词技能，无可执行业务脚本——<strong>真实效果示例待补</strong>，补法与要求见 <code>docs/使用示例.md</code>。</em></p>
+<hr>
+<h2>验证状态（先看这里）</h2>
+<table><thead><tr><th>项</th><th>内容</th></tr></thead><tbody><tr><td>验证等级</td><td><strong>C 级 · 提示词实测</strong></td></tr><tr><td>验证依据</td><td>纯提示词技能；已加载并用 OPC 一人公司真实材料执行，产出符合输出契约、质检通过、零编造（记录见 `docs/05-验收与测试.md`）</td></tr><tr><td>复现命令（在技能库根目录执行）</td><td><code>python3 tests/run.py
+<blockquote>验证分三级，本仓库<strong>如实标注、不伪造业务效果</strong>：<strong>A 级</strong>技能自带确定性脚本并有真实运行证据；<strong>B 级</strong>为工作流技能，其调用链中的脚本已逐个跑通；<strong>C 级</strong>为纯提示词技能，<strong>已用 OPC 一人公司真实材料实测执行</strong>——全库 96 个 C 级技能 100% 跑通、输出契约 100% 符合、质检 391/409、零编造数字，逐条记录见 <code>`docs/05-验收与测试.md`</code>。全库分级详见 <code>docs/验证报告.md</code>。</blockquote>
+<hr>
+<h2>解决什么问题</h2>
+<blockquote>⚠️ 本技能尚未填写真实痛点（<code>pain_points</code>），下表为<strong>通用推导</strong>，信息量有限。</blockquote>
+<table><thead><tr><th>现实痛点</th><th>本技能的做法</th></tr></thead><tbody><tr><td>「把一套主素材按各平台尺寸与比例要求适配」这件事靠人手工做，慢，而且每次结果不一样</td><td>固定成 5 步流程，同一份输入给出同一套结构，换人做也一致</td></tr><tr><td>新人不知道哪里会踩坑，重复交学费</td><td>已把 2 个<strong>真实踩过的坑</strong>写进文档，交付前逐条核对</td></tr><tr><td>交付物各写各的，团队没法横向比较</td><td>输出结构固定为「适配参数表 + 风险提示」，不随执行者漂移</td></tr></tbody></table>
+<hr>
+<h2>快速开始</h2>
+<h3>1. 安装（五平台通用）</h3>
+<p>本技能是<strong>标准 Agent 技能</strong>：目录名 == <code>name</code>、只使用标准字段、正文里没有任何平台专有工具名。因此同一份目录可以直接用于下列平台：</p>
+<table><thead><tr><th>平台</th><th>安装方式</th></tr></thead><tbody><tr><td>WorkBuddy</td><td>把技能目录放到 <code>~/.workbuddy/skills/</code>，或在对话里直接说触发词</td></tr><tr><td>ChatGPT</td><td>打包为 zip 后在 Skills 设置里上传（需支持 Skills 的版本）</td></tr><tr><td>DeepSeek Harness</td><td><code>新建技能 安装:&lt;repo-url&gt;</code>，或把目录放进 harness 的 skills 目录</td></tr><tr><td>Kimi Work</td><td>上传 zip 或放置到技能目录；注意 Kimi Work 不会自动触发，需显式点名技能</td></tr><tr><td>豆包工作</td><td><code>新建技能 安装:&lt;repo-url&gt;</code>，或在技能管理处上传 zip</td></tr></tbody></table>
+<pre data-lang="bash"><code># 通用做法：把本目录整体复制到目标平台的 skills 目录
+cp -r platform-spec-adapter &lt;平台技能目录&gt;/platform-spec-adapter</code></pre>
+<h3>2. 在你的 Agent 里调用</h3>
+<p><strong>方式一 · 自动触发</strong>（description 里已写好中英触发词）：</p>
+<pre data-lang="text"><code>尺寸适配　规格适配　主图改尺寸　出一套各平台图</code></pre>
+<p><strong>方式二 · 显式点名</strong>（Kimi Work 不会自动调用，必须用这条）：</p>
+<pre data-lang="text"><code>用 platform-spec-adapter 技能帮我处理：&lt;你的材料&gt;</code></pre>
+<h3>3. 真实跑一次（本仓库最推荐的一步）</h3>
+<p>本技能为<strong>纯提示词技能</strong>，没有可执行脚本。验证方式是把技能装到目标平台后，用上面的触发词跑一次，并对照 <code>## 输出物长什么样</code> 的契约逐项检查。</p>
+<pre data-lang="bash"><code># 平台兼容校验（本仓库对每个技能都跑过）；需在技能库根目录执行
+python3 tests/run.py
+<hr>
+<h2>输出物长什么样（真实产出）</h2>
+<blockquote>⚠️ <strong>本技能的真实效果示例尚未补齐。</strong> 以下仅为输出结构契约，<strong>不构成效果证据</strong>。</blockquote>
+<pre data-lang="markdown"><code>| 平台 | 用途 | 目标尺寸 | 比例 | 处理方式 | 风险 |</code></pre>
+<hr>
+<h2>适用场景与不适用场景</h2>
+<p><strong>适用</strong></p>
+<ul><li>被以下数字员工引用：电商 AI 商品视觉</li><li>需要<strong>稳定输出结构</strong>的场景：适配参数表 + 风险提示</li><li>平台级公共能力，被 ≥2 个数字员工复用，改一处全库受益</li></ul>
+<p><strong>不适用（写清楚做不到什么，比列一堆能力更有用）</strong></p>
+<ul><li>环境无图像处理能力时，只输出参数不输出图</li></ul>
+<hr>
+<h2>已知陷阱（真实踩过的坑）</h2>
+<blockquote>这一段比能力列表更有用：它们是从实际使用中撞出来的，交付前请逐条核对。</blockquote>
+<ul><li>方形裁成竖版通常要重构图，直接拉伸会变形——需提前告知</li><li>文字贴近边缘，裁切后被切掉</li></ul>
+<hr>
+<h2>常见问题</h2>
+<p><strong>Q：为什么没有脚本？</strong></p>
+<p>本技能的判断依赖语境理解（读语气、读潜台词、读平台调性）。这类事写成规则只会更不可靠，所以交给模型执行，用输出契约约束质量、用交付前自检项兜住下限。</p>
+<p><strong>Q：输出不稳定怎么办？</strong></p>
+<p>先按这个顺序查：① 输入是否满足「必填」清单——缺料时应当停下来问而不是猜；② 是否走到了降级路径（有脚本的技能会在结尾说明用了哪条）；③ 对照「输出物长什么样」的结构逐项核对，缺项要求补齐而不是接受。</p>
+<p><strong>Q：怎么改才能不破坏跨平台性？</strong></p>
+<p>三条：目录名 == frontmatter 的 <code>name</code>；只使用标准字段（name / description / license / compatibility / metadata）；正文里不出现任何平台专有工具名，平台差异下沉到 <code>references/</code>。改完跑一次平台兼容校验。</p>
+<hr>
+<h2>目录结构</h2>
+<pre data-lang="text"><code>platform-spec-adapter/
+├── SKILL.md                  # 技能定义（跨平台标准）
+├── README.md
+├── index.html                # 交付物导航页（浏览器打开）
+├── site.json                 # 导航数据
+├── docs/
+│   ├── 使用手册.md / .html
+│   ├── 使用示例.md / .html
+│   ├── 用户场景.md / .html
+│   ├── 架构与流程图.md / .html
+│   └── images/               # 架构图 / 流程图 / 决策矩阵 / 终端截图 / 录屏
+├── references/
+│   └── architecture.md       # 字段、脚本、依赖速查
+├── examples/
+│   ├── input/                # 真实运行夹具
+│   └── output/               # 真实抓取的命令输出
+├── demo/
+│   └── walkthrough.html      # 演示页（真实会话回放）</code></pre>
+<hr>
+<h2>合规与边界</h2>
+<ul><li>许可：MIT；版本 v1.0.0</li><li>归属：电商 AI 商品视觉</li><li>输出内容在对外发布前，<strong>必须</strong>按《广告法》与目标平台规则逐条人工复核</li><li>本技能不做平台官方审核的替代，只做发布前自查</li></ul>
+<hr>
+<h2>深入了解</h2>
+<table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><code>docs/使用手册.md</code></td><td>安装、参数总表、输出物说明、排错手册</td></tr><tr><td><code>docs/使用示例.md</code></td><td>可直接复制的示例，含真实运行输出节选</td></tr><tr><td><code>docs/用户场景.md</code></td><td>谁、什么时机、说什么、得到什么、注意什么</td></tr><tr><td><code>docs/架构与流程图.md</code></td><td>业务架构、执行流程、脚本与模型分工、扩展指南</td></tr><tr><td><code>references/architecture.md</code></td><td>字段、脚本、上下游依赖速查</td></tr><tr><td><code>SKILL.md</code></td><td>技能定义（触发词、能力边界、使用方式）</td></tr><tr><td><code>demo/walkthrough.html</code></td><td>演示页：真实会话回放</td></tr></tbody></table>
+<p>演示录屏：<code>docs/images/08-demo-run.gif</code>（动图）· <code>docs/images/08-demo-run.mp4</code>（视频）<br>效果图：<code>docs/images/04-terminal-run.png</code>（环境能力探测）</p>
+</div>
+<div class="footer">生成于 2026-09-30 · 本平台资产库 交付物</div>
+</div></body></html>

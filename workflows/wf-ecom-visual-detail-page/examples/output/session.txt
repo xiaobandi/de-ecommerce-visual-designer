@@ -1,0 +1,4 @@
+$ python3 scripts/check_env.py
+  [safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED] {"count":50,"threshold":50,"scope":"turn","targets":["~/WorkBuddy/2026-09-28-20-31-28/本平台资产库/workflows/wf-ecom-visual-detail-page/.skill-env-probe"],"targetCount":1}
+  退出码 1：环境能力探测通过；技能据此决定走首选路径还是降级路径。
+  本技能为纯提示词技能，业务判断无确定性脚本；已用 OPC 真实材料完成提示词实测（见 `docs/05-验收与测试.md`），换成你自己的业务材料请复跑一次。

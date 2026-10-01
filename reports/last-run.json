@@ -1,0 +1,36 @@
+{
+  "repo": "de-ecommerce-visual-designer",
+  "kind": "employee",
+  "run_at": "2026-09-30T23:54:20+08:00",
+  "cases": 209,
+  "passed": 209,
+  "failed": 0,
+  "by_suite": {
+    "structure": {
+      "total": 56,
+      "failed": 0
+    },
+    "contract": {
+      "total": 27,
+      "failed": 0
+    },
+    "scenario": {
+      "total": 98,
+      "failed": 0
+    },
+    "script": {
+      "total": 9,
+      "failed": 0
+    },
+    "doc": {
+      "total": 3,
+      "failed": 0
+    },
+    "compliance": {
+      "total": 16,
+      "failed": 0
+    }
+  },
+  "skipped": [],
+  "failures": []
+}

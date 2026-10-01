@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>详情页排版生成 · 使用手册</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+      --brand:#0f766e;--brand-soft:#f0fdfa;--code-bg:#f3f4f6;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-size:15px;line-height:1.78;
+     font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);backdrop-filter:blur(8px);
+        border-bottom:1px solid var(--line);padding:10px 24px;display:flex;gap:12px;align-items:center;font-size:13px}
+.topbar a{color:var(--brand);text-decoration:none;font-weight:600}
+.topbar .name{color:var(--muted)}
+.wrap{max-width:920px;margin:0 auto;padding:28px 24px 80px}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:38px 46px;
+     box-shadow:0 1px 3px rgba(0,0,0,.04)}
+h1{font-size:27px;margin:0 0 10px;padding-bottom:14px;border-bottom:2px solid var(--brand)}
+h2{font-size:20px;margin:34px 0 12px;padding-left:12px;border-left:4px solid var(--brand)}
+h3{font-size:17px;margin:24px 0 8px}
+h4{font-size:15px;margin:18px 0 6px;color:#374151}
+a{color:var(--brand)}
+code{background:var(--code-bg);padding:2px 6px;border-radius:4px;font-size:13px;
+     font-family:"SF Mono",Menlo,Consolas,monospace}
+pre{background:#0f172a;color:#e2e8f0;padding:16px 18px;border-radius:10px;overflow-x:auto;line-height:1.62}
+pre code{background:none;color:inherit;padding:0;font-size:12.5px}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+th{background:var(--brand-soft);text-align:left}
+th,td{border:1px solid var(--line);padding:9px 12px;vertical-align:top}
+tr:nth-child(even) td{background:#fafafa}
+blockquote{margin:14px 0;padding:11px 18px;background:var(--brand-soft);
+           border-left:4px solid var(--brand);border-radius:0 8px 8px 0;color:#475569}
+blockquote p{margin:4px 0}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;margin:14px 0;
+    box-shadow:0 1px 3px rgba(0,0,0,.06)}
+hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+ul,ol{padding-left:26px}li{margin:5px 0}
+.hero{background:linear-gradient(135deg,#0f766e,#0d9488 55%,#14b8a6);color:#fff;
+      border-radius:16px;padding:32px 36px;margin-bottom:24px}
+.hero h1{border:none;padding:0;margin:0 0 8px;font-size:27px;color:#fff}
+.hero p{margin:4px 0;opacity:.95;font-size:14px}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.42);
+       border-radius:999px;padding:3px 12px;font-size:12px;margin:10px 8px 0 0}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 26px 24px;
+        margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:12px;
+      padding:15px 17px;text-decoration:none;color:var(--text);background:#fff;border-top:3px solid var(--brand);
+      transition:.15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,118,110,.13)}
+.ct{font-weight:700;font-size:15px}
+.cd{font-size:13px;color:var(--muted);line-height:1.6}
+.cf{font-size:11px;color:#9ca3af;font-family:"SF Mono",Menlo,monospace}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.shot{text-decoration:none;color:var(--text);border:1px solid var(--line);border-radius:12px;
+      overflow:hidden;background:#fff}
+.shot img{margin:0;border:none;border-radius:0;box-shadow:none;display:block}
+.cap{padding:10px 14px;font-size:12.5px;color:#475569}
+.grade{display:inline-block;border-radius:8px;padding:4px 12px;font-size:13px;font-weight:700}
+.g-A{background:#dcfce7;color:#15803d;border:1px solid #86efac}
+.g-B{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
+.g-C{background:#fef3c7;color:#b45309;border:1px solid #fcd34d}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
+</style></head>
+<body><div class="topbar"><a href="../index.html">← 交付物导航</a><span class="name">详情页排版生成</span><span class="name" style="margin-left:auto">wf-ecom-visual-detail-page</span></div><div class="wrap"><div class="doc">
+<h1>使用手册</h1>
+<p>技能：<strong>详情页排版生成</strong>（<code>wf-ecom-visual-detail-page</code>）　·　L2 工作流技能　·　v1.0.0</p>
+<hr>
+<h2>一、环境要求</h2>
+<table><thead><tr><th>项</th><th>要求</th></tr></thead><tbody><tr><td>Agent 平台</td><td>WorkBuddy / ChatGPT / DeepSeek Harness / Kimi Work / 豆包工作中任一</td></tr><tr><td>Python</td><td>3.8+（<strong>仅当本技能自带脚本时需要</strong>；纯对话使用不需要）</td></tr><tr><td>第三方依赖</td><td>无（纯提示词技能）</td></tr><tr><td>网络</td><td>无强制要求；Excel/图片类处理在本地完成</td></tr></tbody></table>
+<h2>二、安装</h2>
+<h3>2.1 目录放置（推荐）</h3>
+<pre data-lang="bash"><code>cp -r wf-ecom-visual-detail-page ~/.workbuddy/skills/          # WorkBuddy / 通用</code></pre>
+<h3>2.2 各平台差异</h3>
+<table><thead><tr><th>平台</th><th>方式</th><th>注意事项</th></tr></thead><tbody><tr><td>WorkBuddy</td><td>放到 <code>~/.workbuddy/skills/</code></td><td>支持自动触发，也可显式点名</td></tr><tr><td>ChatGPT</td><td>上传 zip</td><td>需账号支持 Skills</td></tr><tr><td>DeepSeek Harness</td><td><code>新建技能 安装:&lt;repo-url&gt;</code></td><td>需要仓库可访问</td></tr><tr><td>Kimi Work</td><td>上传 zip / 放目录</td><td><strong>不会自动调用</strong>，必须显式点名技能</td></tr><tr><td>豆包工作</td><td><code>新建技能 安装:&lt;repo-url&gt;</code></td><td>触发词识别依赖 description 质量</td></tr></tbody></table>
+<h3>2.3 安装后自检</h3>
+<pre data-lang="bash"><code># 在技能库根目录执行（技能目录内没有 tools/）
+python3 tests/run.py
+<p>校验项：目录名与 <code>name</code> 一致、只使用标准字段、正文不含平台专有工具名、触发词中英双语且信息量足够。<strong>任一项不通过，技能在部分平台会静默不加载。</strong></p>
+<h2>三、快速上手</h2>
+<h3>3.1 纯对话方式（零安装）</h3>
+<pre data-lang="text"><code>用 wf-ecom-visual-detail-page 技能：&lt;把你的材料贴进来&gt;</code></pre>
+<h2>四、参数总表</h2>
+<h3>4.1 输入字段</h3>
+<table><thead><tr><th>字段</th><th>必填</th><th>说明</th></tr></thead><tbody><tr><td>流程起始材料（见执行步骤第 1 步）</td><td>✅</td><td>缺失会导致早退或输出不可用</td></tr><tr><td>用户身份与目标渠道/平台</td><td>✅</td><td>缺失会导致早退或输出不可用</td></tr><tr><td>历史产出</td><td>⬜</td><td>提升质量，缺失不阻塞</td></tr><tr><td>账号人设</td><td>⬜</td><td>提升质量，缺失不阻塞</td></tr><tr><td>渠道规则</td><td>⬜</td><td>提升质量，缺失不阻塞</td></tr><tr><td>上一周期数据</td><td>⬜</td><td>提升质量，缺失不阻塞</td></tr></tbody></table>
+<h3>4.2 触发词</h3>
+<table><thead><tr><th>语言</th><th>触发词</th></tr></thead><tbody><tr><td>中文</td><td>详情页排版生成、电商 AI 商品视觉</td></tr><tr><td>英文</td><td>wf ecom visual detail page</td></tr></tbody></table>
+<h2>五、输出物说明</h2>
+<p><strong>详情页排版生成交付物（按执行步骤逐步产出）</strong></p>
+<pre data-lang="markdown"><code># 详情页排版生成 — 交付物
+&gt; 所属员工：电商 AI 商品视觉　触发：人工　阶段：P1
+
+1. **卖点结构化**（产出：文案排版）
+2. **版式模板**（产出：本步结论）
+3. **长图导出**（产出：本步结论）
+
+## 结论与风险
+## 用了哪条降级路径（若发生）</code></pre>
+<p>交付前逐条核对：</p>
+<ul><li>[ ] 信息层级清晰，主次分明</li><li>[ ] 各步产出按顺序衔接，链路无断点</li><li>[ ] 缺料时显式停下来问，未用假设填补</li></ul>
+<h2>六、排错手册</h2>
+<p>按「症状 → 原因 → 处理」组织。表里的每一条都来自真实使用中撞出来的问题。</p>
+<table><thead><tr><th>#</th><th>症状</th><th>原因</th><th>处理</th></tr></thead><tbody><tr><td>1</td><td>已知坑（详见 SKILL.md）</td><td>文字过多是详情页通病，优先级是'少而准'</td><td>按上文说明调整后重跑</td></tr></tbody></table>
+<h2>七、耗时与成本</h2>
+<table><thead><tr><th>模式</th><th>耗时</th><th>成本</th></tr></thead><tbody><tr><td>对话模式</td><td>取决于平台与上下文长度</td><td>按平台计费</td></tr></tbody></table>
+<p>想更快：把脚本模式作为默认路径，只把需要语境判断的环节交给模型。</p>
+</div>
+<div class="footer">生成于 2026-09-30 · 本平台资产库 交付物</div>
+</div></body></html>

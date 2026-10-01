@@ -1,0 +1,30 @@
+# 运行产物
+*.log
+*.tmp
+.cache/
+
+# 知识库私有语料：只保留目录结构与样例，真实语料不进 Git
+kb/corpus/*
+!kb/corpus/.gitkeep
+!kb/corpus/samples/
+
+# 密钥与本地配置
+.env
+*.key
+secrets.yaml
+connectors/local.*.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+
+# 环境探测探针：check_env.py 会在 cwd 落一个临时文件以判定可写性。
+# 技能库侧的 .gitignore 已含此条，仓库侧漏了——一旦漏掉，跑过一次测试
+# 就会把探针文件提交进仓库（实测曾撒出 259 个），既污染 diff 又毫无意义。
+.skill-env-probe
+.skill-env-probe-absent
+
+# 编辑器 / 系统
+.DS_Store
+.idea/
+.vscode/

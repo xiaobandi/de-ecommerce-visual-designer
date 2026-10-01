@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>白底图生成 · 架构与流程图</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+      --brand:#0f766e;--brand-soft:#f0fdfa;--code-bg:#f3f4f6;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-size:15px;line-height:1.78;
+     font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);backdrop-filter:blur(8px);
+        border-bottom:1px solid var(--line);padding:10px 24px;display:flex;gap:12px;align-items:center;font-size:13px}
+.topbar a{color:var(--brand);text-decoration:none;font-weight:600}
+.topbar .name{color:var(--muted)}
+.wrap{max-width:920px;margin:0 auto;padding:28px 24px 80px}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:38px 46px;
+     box-shadow:0 1px 3px rgba(0,0,0,.04)}
+h1{font-size:27px;margin:0 0 10px;padding-bottom:14px;border-bottom:2px solid var(--brand)}
+h2{font-size:20px;margin:34px 0 12px;padding-left:12px;border-left:4px solid var(--brand)}
+h3{font-size:17px;margin:24px 0 8px}
+h4{font-size:15px;margin:18px 0 6px;color:#374151}
+a{color:var(--brand)}
+code{background:var(--code-bg);padding:2px 6px;border-radius:4px;font-size:13px;
+     font-family:"SF Mono",Menlo,Consolas,monospace}
+pre{background:#0f172a;color:#e2e8f0;padding:16px 18px;border-radius:10px;overflow-x:auto;line-height:1.62}
+pre code{background:none;color:inherit;padding:0;font-size:12.5px}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+th{background:var(--brand-soft);text-align:left}
+th,td{border:1px solid var(--line);padding:9px 12px;vertical-align:top}
+tr:nth-child(even) td{background:#fafafa}
+blockquote{margin:14px 0;padding:11px 18px;background:var(--brand-soft);
+           border-left:4px solid var(--brand);border-radius:0 8px 8px 0;color:#475569}
+blockquote p{margin:4px 0}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;margin:14px 0;
+    box-shadow:0 1px 3px rgba(0,0,0,.06)}
+hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+ul,ol{padding-left:26px}li{margin:5px 0}
+.hero{background:linear-gradient(135deg,#0f766e,#0d9488 55%,#14b8a6);color:#fff;
+      border-radius:16px;padding:32px 36px;margin-bottom:24px}
+.hero h1{border:none;padding:0;margin:0 0 8px;font-size:27px;color:#fff}
+.hero p{margin:4px 0;opacity:.95;font-size:14px}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.42);
+       border-radius:999px;padding:3px 12px;font-size:12px;margin:10px 8px 0 0}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 26px 24px;
+        margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:12px;
+      padding:15px 17px;text-decoration:none;color:var(--text);background:#fff;border-top:3px solid var(--brand);
+      transition:.15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,118,110,.13)}
+.ct{font-weight:700;font-size:15px}
+.cd{font-size:13px;color:var(--muted);line-height:1.6}
+.cf{font-size:11px;color:#9ca3af;font-family:"SF Mono",Menlo,monospace}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.shot{text-decoration:none;color:var(--text);border:1px solid var(--line);border-radius:12px;
+      overflow:hidden;background:#fff}
+.shot img{margin:0;border:none;border-radius:0;box-shadow:none;display:block}
+.cap{padding:10px 14px;font-size:12.5px;color:#475569}
+.grade{display:inline-block;border-radius:8px;padding:4px 12px;font-size:13px;font-weight:700}
+.g-A{background:#dcfce7;color:#15803d;border:1px solid #86efac}
+.g-B{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
+.g-C{background:#fef3c7;color:#b45309;border:1px solid #fcd34d}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
+</style></head>
+<body><div class="topbar"><a href="../index.html">← 交付物导航</a><span class="name">白底图生成</span><span class="name" style="margin-left:auto">white-bg-image</span></div><div class="wrap"><div class="doc">
+<h1>架构与流程图</h1>
+<p>包含架构图、流程图的 Mermaid 源码（方便你改），以及二次开发指南。</p>
+<hr>
+<h2>一、业务架构</h2>
+<p><img src="images/01-architecture.png" alt="业务架构"></p>
+<table><thead><tr><th>层</th><th>内容</th></tr></thead><tbody><tr><td>使用者</td><td>de_ecommerce_visual_designer</td></tr><tr><td>触发层</td><td>白底图、抠图、去背景、主图白底</td></tr><tr><td>执行层</td><td>5 步：确认平台对白底图的规范（尺寸、留白、阴影） …</td></tr><tr><td>产出层</td><td>白底图 或 处理参数说明</td></tr></tbody></table>
+<hr>
+<h2>二、执行流程</h2>
+<p><img src="images/02-workflow.png" alt="执行流程"></p>
+<h3>Mermaid 源码</h3>
+<pre data-lang="mermaid"><code>graph TD
+    START([START]) --&gt; n0["1. 确认平台对白底图的规范（尺寸、留白、阴影）"]
+    n0 --&gt; n1["2. 判断环境是否具备图像处理能力"]
+    n1 --&gt; n2["3. 有图像能力：执行抠图与白底合成；无能力：输出处理参数与提示词"]
+    n2 --&gt; n3["4. 检查边缘（毛发、透明材质易出问题）"]
+    n3 --&gt; n4["5. 输出结果或参数"]
+    n4 --&gt; END([END])
+
+    classDef script fill:#fffbeb,stroke:#b45309,color:#b45309
+    classDef model fill:#eff6ff,stroke:#1d4ed8,color:#1d4ed8
+    class n0,n1,n2,n3,n4 model</code></pre>
+<h3>步骤职责</h3>
+<table><thead><tr><th>#</th><th>步骤</th><th>承担者</th></tr></thead><tbody><tr><td>01</td><td>确认平台对白底图的规范（尺寸、留白、阴影）</td><td>模型判断</td></tr><tr><td>02</td><td>判断环境是否具备图像处理能力</td><td>模型判断</td></tr><tr><td>03</td><td>有图像能力：执行抠图与白底合成；无能力：输出处理参数与提示词</td><td>模型判断</td></tr><tr><td>04</td><td>检查边缘（毛发、透明材质易出问题）</td><td>模型判断</td></tr><tr><td>05</td><td>输出结果或参数</td><td>模型判断</td></tr></tbody></table>
+<blockquote>「承担者」的判据是<strong>这个环节是不是确定性的</strong>：机械、可复现的交脚本，需要读懂语境（语气、潜台词、平台调性）的交模型——写成规则只会更不可靠。<br>每一步的输入、产出与失败处理，见 <code>SKILL.md</code> 的「执行步骤」对应小节。</blockquote>
+<hr>
+<h2>三、脚本与模型的分工</h2>
+<p><img src="images/03-decision-matrix.png" alt="分工与质量门"></p>
+<p>分工原则：<strong>把确定的事交给确定的方法，把需要读懂语境的事交给模型</strong>。</p>
+<table><thead><tr><th>环节</th><th>承担者</th><th>为什么</th></tr></thead><tbody><tr><td>机械处理（扫描、渲染、打标、计算）</td><td>脚本</td><td>可复现、可测试、零成本、不怕漏</td></tr><tr><td>语境判断（反讽、潜台词、平台调性）</td><td>模型</td><td>规则写法只会更不可靠</td></tr><tr><td>最终交付判定</td><td>人</td><td>合规与承诺不能由机器签字</td></tr></tbody></table>
+<hr>
+<h2>四、输入输出契约</h2>
+<p><strong>输入</strong></p>
+<table><thead><tr><th>字段</th><th>必填</th><th>说明</th></tr></thead><tbody><tr><td>商品原图</td><td>✅</td><td>—</td></tr><tr><td>目标平台白底规范</td><td>⬜</td><td>—</td></tr><tr><td>是否需要阴影</td><td>⬜</td><td>—</td></tr></tbody></table>
+<p><strong>输出</strong></p>
+<pre data-lang="markdown"><code>## 平台规范
+## 处理结果 / 参数
+## 需人工复核的边缘</code></pre>
+<hr>
+<h2>五、扩展指南</h2>
+<h3>5.1 增加一个执行步骤</h3>
+<ol><li>在 <code>SKILL.md</code> 的 <code>## 执行步骤</code> 里追加一步，写明<strong>输入、产出、失败怎么办</strong></li><li>如果是机械环节，写成脚本放进 <code>scripts/</code>，并在步骤前加 <code>[脚本]</code> 标记</li><li>同步更新本文件的 Mermaid 源码与 <code>README.md</code> 的输出契约</li><li>在技能库根目录重新跑平台兼容校验：<code>python3 tests/run.py
+<h3>5.2 换掉/新增脚本</h3>
+<p>脚本约定三条（保持不变才能被安全替换）：</p>
+<ol><li><strong>零第三方依赖</strong>，只用 Python 标准库</li><li><strong>文件/stdin 进，stdout 出</strong>，不用交互式输入</li><li><strong>退出码语义</strong>：0 通过 / 1 警告 / 2 阻断</li></ol>
+<h3>5.3 移植到新平台</h3>
+<p>本技能正文里<strong>没有出现任何平台名</strong>，平台差异全部下沉到平台安装章节。移植时只改安装说明，不改执行步骤。<br>新增平台时请把差异写进 <code>docs/使用手册.md</code> 的「各平台差异」表，不要写进 SKILL.md。</p>
+<hr>
+<h2>六、文件职责一览</h2>
+<table><thead><tr><th>文件</th><th>职责</th><th>依赖模型</th></tr></thead><tbody><tr><td><code>SKILL.md</code></td><td>技能定义与执行步骤</td><td>—</td></tr><tr><td><code>scripts/check_env.py</code></td><td>环境探测与降级</td><td>—</td></tr><tr><td><code>docs/*</code></td><td>交付文档</td><td>—</td></tr><tr><td><code>examples/*</code></td><td>真实运行夹具与输出</td><td>—</td></tr></tbody></table>
+</div>
+<div class="footer">生成于 2026-09-30 · 本平台资产库 交付物</div>
+</div></body></html>

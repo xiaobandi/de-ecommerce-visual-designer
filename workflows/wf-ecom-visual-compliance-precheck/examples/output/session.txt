@@ -1,0 +1,13 @@
+$ python3 ../../tools/compliance_scan.py --file examples/input/draft.txt --platform 淘宝
+  目标平台：淘宝　词表版本：2026.09-baseline
+  结论：阻断
+    - 医疗功效 命中 1 处
+    - 平台引流 命中 1 处
+    - 极限词 命中 5 处
+  AI 味评分：0/100
+  命中总数：7
+    [极限词] 全网最低价, 100%, 国家级认证, 绝对, 最划算
+    [医疗功效] 治失眠
+    [平台引流] 加V
+  → 命中高危，不得直接对外发布；逐条替换后重扫。
+  ↑ 原子技能 compliance-word-scan 的确定性脚本

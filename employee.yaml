@@ -1,0 +1,99 @@
+apiVersion: digital-employee/v1
+kind: DigitalEmployee
+metadata:
+  id: de_ecommerce_visual_designer
+  name: 电商 AI 商品视觉
+  alias: 视觉设计师·小图
+  repo: de-ecommerce-visual-designer
+  card_no: 6.4-①
+  group: ecommerce
+  group_label: 电商商家
+  phase: P0 首发
+  complexity: M（AI 模特换装为 L 排 P2）
+  score: 高频5｜痛点5｜客单价3｜广度5｜价值5 ＝ **23/25**
+  price: 30-100 元/月
+  channels:
+  - GitHub
+  - 闲鱼/淘宝（钩子 SKU）
+  - 小红书
+  - Coze扣子商店
+  license: Proprietary
+  version: 1.0.0
+spec:
+  positioning: 视觉设计师·小图 ｜ 一人店的"到岗美工"，只出能直接上架的合规商品图
+  users: 月上新 5-50 款的四平台一人店/夫妻店
+  boundary: 做：商品图生成、质检、合规预审、多平台适配；不做：品牌 VI、仿冒与虚假功效图
+  kpi: 一次过审率 ≥90%；单张交付 ≤5 分钟；返工率 ≤10%
+  roi_summary: 月省约 21h≈¥630 + 替代外包 ¥300-1500/次 vs 月费 ≤¥100，当月回本
+  demand_refs:
+  - D01
+  - D26
+  demand_support: 中等
+  demand_evidence: 中｜D 表无商品图专属需求 ID，主依据为 R3 群体痛点 + SC2 商品图场景（3 源）
+runtime:
+  system_prompt: persona/system-prompt.md
+  boundary: persona/boundary.md
+  kpi: persona/kpi.md
+deliverables:
+  skills:
+  - slug: platform-spec-adapter
+    name: 平台规格适配
+    kind: private
+    path: skills/platform-spec-adapter
+    version: 1.0.0
+    maturity: implemented
+  - slug: white-bg-image
+    name: 白底图生成
+    kind: private
+    path: skills/white-bg-image
+    version: 1.0.0
+    maturity: implemented
+  workflows:
+  - slug: wf-ecom-visual-batch-gen-qc
+    name: 商品图批量生成与质检
+    path: workflows/wf-ecom-visual-batch-gen-qc
+    version: 1.0.0
+    phase: P0
+    calls:
+    - white-bg-image
+  - slug: wf-ecom-visual-main-ab
+    name: 主图 A/B 版本生成
+    path: workflows/wf-ecom-visual-main-ab
+    version: 1.0.0
+    phase: P0
+    calls:
+    - white-bg-image
+    - copy-layout
+  - slug: wf-ecom-visual-compliance-precheck
+    name: 平台合规预审
+    path: workflows/wf-ecom-visual-compliance-precheck
+    version: 1.0.0
+    phase: P0
+    calls:
+    - compliance-word-scan
+  - slug: wf-ecom-visual-spec-adapt
+    name: 多平台规格一键适配
+    path: workflows/wf-ecom-visual-spec-adapt
+    version: 1.0.0
+    phase: P1
+    calls:
+    - platform-spec-adapter
+  - slug: wf-ecom-visual-detail-page
+    name: 详情页排版生成
+    path: workflows/wf-ecom-visual-detail-page
+    version: 1.0.0
+    phase: P1
+    calls:
+    - copy-layout
+    - conversion-structure-template
+  knowledge_base: kb/
+  connectors: connectors/bindings.yaml
+external_dependencies:
+- repo: agent-skills-core
+  version: 1.0.0
+  skills:
+  - compliance-word-scan
+  - conversion-structure-template
+  - copy-layout
+  resolution: external
+spec_only_dependencies: []

@@ -1,0 +1,22 @@
+repo: de-ecommerce-visual-designer
+core:
+  repo: agent-skills-core
+  version: 1.0.0
+  tag: v1.0.0
+dependencies:
+- skill: compliance-word-scan
+  name: 平台合规词扫描
+  source: agent-skills-core@1.0.0
+  kind: skill
+  required: true
+- skill: conversion-structure-template
+  name: 转化结构模板
+  source: agent-skills-core@1.0.0
+  kind: skill
+  required: true
+- skill: copy-layout
+  name: 文案排版
+  source: agent-skills-core@1.0.0
+  kind: skill
+  required: true
+resolution_rule: 员工仓库对 core 只做 external_dependency 引用，不内联复制 SKILL.md 正文

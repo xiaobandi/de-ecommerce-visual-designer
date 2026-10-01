@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>主图 A/B 版本生成 · 使用示例</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+      --brand:#0f766e;--brand-soft:#f0fdfa;--code-bg:#f3f4f6;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-size:15px;line-height:1.78;
+     font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);backdrop-filter:blur(8px);
+        border-bottom:1px solid var(--line);padding:10px 24px;display:flex;gap:12px;align-items:center;font-size:13px}
+.topbar a{color:var(--brand);text-decoration:none;font-weight:600}
+.topbar .name{color:var(--muted)}
+.wrap{max-width:920px;margin:0 auto;padding:28px 24px 80px}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:38px 46px;
+     box-shadow:0 1px 3px rgba(0,0,0,.04)}
+h1{font-size:27px;margin:0 0 10px;padding-bottom:14px;border-bottom:2px solid var(--brand)}
+h2{font-size:20px;margin:34px 0 12px;padding-left:12px;border-left:4px solid var(--brand)}
+h3{font-size:17px;margin:24px 0 8px}
+h4{font-size:15px;margin:18px 0 6px;color:#374151}
+a{color:var(--brand)}
+code{background:var(--code-bg);padding:2px 6px;border-radius:4px;font-size:13px;
+     font-family:"SF Mono",Menlo,Consolas,monospace}
+pre{background:#0f172a;color:#e2e8f0;padding:16px 18px;border-radius:10px;overflow-x:auto;line-height:1.62}
+pre code{background:none;color:inherit;padding:0;font-size:12.5px}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+th{background:var(--brand-soft);text-align:left}
+th,td{border:1px solid var(--line);padding:9px 12px;vertical-align:top}
+tr:nth-child(even) td{background:#fafafa}
+blockquote{margin:14px 0;padding:11px 18px;background:var(--brand-soft);
+           border-left:4px solid var(--brand);border-radius:0 8px 8px 0;color:#475569}
+blockquote p{margin:4px 0}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;margin:14px 0;
+    box-shadow:0 1px 3px rgba(0,0,0,.06)}
+hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+ul,ol{padding-left:26px}li{margin:5px 0}
+.hero{background:linear-gradient(135deg,#0f766e,#0d9488 55%,#14b8a6);color:#fff;
+      border-radius:16px;padding:32px 36px;margin-bottom:24px}
+.hero h1{border:none;padding:0;margin:0 0 8px;font-size:27px;color:#fff}
+.hero p{margin:4px 0;opacity:.95;font-size:14px}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.42);
+       border-radius:999px;padding:3px 12px;font-size:12px;margin:10px 8px 0 0}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 26px 24px;
+        margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:12px;
+      padding:15px 17px;text-decoration:none;color:var(--text);background:#fff;border-top:3px solid var(--brand);
+      transition:.15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,118,110,.13)}
+.ct{font-weight:700;font-size:15px}
+.cd{font-size:13px;color:var(--muted);line-height:1.6}
+.cf{font-size:11px;color:#9ca3af;font-family:"SF Mono",Menlo,monospace}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.shot{text-decoration:none;color:var(--text);border:1px solid var(--line);border-radius:12px;
+      overflow:hidden;background:#fff}
+.shot img{margin:0;border:none;border-radius:0;box-shadow:none;display:block}
+.cap{padding:10px 14px;font-size:12.5px;color:#475569}
+.grade{display:inline-block;border-radius:8px;padding:4px 12px;font-size:13px;font-weight:700}
+.g-A{background:#dcfce7;color:#15803d;border:1px solid #86efac}
+.g-B{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
+.g-C{background:#fef3c7;color:#b45309;border:1px solid #fcd34d}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
+</style></head>
+<body><div class="topbar"><a href="../index.html">← 交付物导航</a><span class="name">主图 A/B 版本生成</span><span class="name" style="margin-left:auto">wf-ecom-visual-main-ab</span></div><div class="wrap"><div class="doc">
+<h1>使用示例</h1>
+<p>技能：<strong>主图 A/B 版本生成</strong>（<code>wf-ecom-visual-main-ab</code>）</p>
+<blockquote>⚠️ <strong>本技能的真实效果示例尚未补齐</strong>：以下仅为输入 / 输出契约（<strong>不构成效果证据</strong>）与平台兼容性验证结果。发布前须补至少 3 组「真实输入 → 实际产出」。</blockquote>
+<hr>
+<blockquote>⚠️ <strong>本技能的真实效果示例尚未补齐</strong>：下列内容只是输入 / 输出契约，<strong>不构成效果证据</strong>。发布前必须补至少 3 组「真实输入 → 实际产出」。</blockquote>
+<h2>输入契约</h2>
+<table><thead><tr><th>字段</th><th>必填</th><th>说明</th></tr></thead><tbody><tr><td>流程起始材料（见执行步骤第 1 步）</td><td>✅</td><td>流程起始材料（见执行步骤第 1 步）</td></tr><tr><td>用户身份与目标渠道/平台</td><td>✅</td><td>用户身份与目标渠道/平台</td></tr><tr><td>历史产出</td><td>⬜</td><td>历史产出</td></tr><tr><td>账号人设</td><td>⬜</td><td>账号人设</td></tr><tr><td>渠道规则</td><td>⬜</td><td>渠道规则</td></tr><tr><td>上一周期数据</td><td>⬜</td><td>上一周期数据</td></tr></tbody></table>
+<hr>
+<h2>输出契约</h2>
+<pre data-lang="markdown"><code># 主图 A/B 版本生成 — 交付物
+&gt; 所属员工：电商 AI 商品视觉　触发：人工　阶段：P0
+
+1. **卖点**（产出：场景图合成）
+2. **2-4 版主图**（产出：文案排版）
+3. **CTR 建议**（产出：本步结论）
+
+## 结论与风险
+## 用了哪条降级路径（若发生）</code></pre>
+<hr>
+<h2>平台兼容性验证（真实运行）</h2>
+<pre data-lang="bash"><code># 在技能库根目录执行（技能目录内没有 tools/）
+python3 tests/run.py
+<p><strong>真实输出</strong>：</p>
+<pre data-lang="console"><code>
+==============================================================
+通过  workflows/wf-ecom-visual-main-ab
+==============================================================
+  无问题
+
+共检查 1 个技能，错误 0 项。</code></pre>
+<blockquote>本技能已用 OPC 一人公司真实材料完成提示词实测（100% 跑通、零编造，见 <code>`docs/05-验收与测试.md`</code>），并通过平台兼容校验；换成你自己的业务材料请复跑一次。</blockquote>
+<hr>
+<h2>质量自检（交付前必过）</h2>
+<ul><li>[ ] 商品外观与原图一致</li><li>[ ] 信息层级清晰，主次分明</li><li>[ ] 各步产出按顺序衔接，链路无断点</li><li>[ ] 缺料时显式停下来问，未用假设填补</li></ul>
+<hr>
+<h2>附 · 文件位置</h2>
+<table><thead><tr><th>内容</th><th>路径</th></tr></thead><tbody><tr><td>输入夹具</td><td><code>examples/input/</code></td></tr><tr><td>真实输出</td><td><code>examples/output/session.txt</code></td></tr><tr><td>终端截图</td><td><code>docs/images/04-terminal-run.png</code></td></tr><tr><td>录屏</td><td><code>docs/images/08-demo-run.gif</code> · <code>.mp4</code></td></tr></tbody></table>
+</div>
+<div class="footer">生成于 2026-09-30 · 本平台资产库 交付物</div>
+</div></body></html>

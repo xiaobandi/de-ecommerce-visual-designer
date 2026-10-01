@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>平台规格适配（图像） · 交付物导航</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+      --brand:#0f766e;--brand-soft:#f0fdfa;--code-bg:#f3f4f6;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-size:15px;line-height:1.78;
+     font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);backdrop-filter:blur(8px);
+        border-bottom:1px solid var(--line);padding:10px 24px;display:flex;gap:12px;align-items:center;font-size:13px}
+.topbar a{color:var(--brand);text-decoration:none;font-weight:600}
+.topbar .name{color:var(--muted)}
+.wrap{max-width:920px;margin:0 auto;padding:28px 24px 80px}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:38px 46px;
+     box-shadow:0 1px 3px rgba(0,0,0,.04)}
+h1{font-size:27px;margin:0 0 10px;padding-bottom:14px;border-bottom:2px solid var(--brand)}
+h2{font-size:20px;margin:34px 0 12px;padding-left:12px;border-left:4px solid var(--brand)}
+h3{font-size:17px;margin:24px 0 8px}
+h4{font-size:15px;margin:18px 0 6px;color:#374151}
+a{color:var(--brand)}
+code{background:var(--code-bg);padding:2px 6px;border-radius:4px;font-size:13px;
+     font-family:"SF Mono",Menlo,Consolas,monospace}
+pre{background:#0f172a;color:#e2e8f0;padding:16px 18px;border-radius:10px;overflow-x:auto;line-height:1.62}
+pre code{background:none;color:inherit;padding:0;font-size:12.5px}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+th{background:var(--brand-soft);text-align:left}
+th,td{border:1px solid var(--line);padding:9px 12px;vertical-align:top}
+tr:nth-child(even) td{background:#fafafa}
+blockquote{margin:14px 0;padding:11px 18px;background:var(--brand-soft);
+           border-left:4px solid var(--brand);border-radius:0 8px 8px 0;color:#475569}
+blockquote p{margin:4px 0}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;margin:14px 0;
+    box-shadow:0 1px 3px rgba(0,0,0,.06)}
+hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+ul,ol{padding-left:26px}li{margin:5px 0}
+.hero{background:linear-gradient(135deg,#0f766e,#0d9488 55%,#14b8a6);color:#fff;
+      border-radius:16px;padding:32px 36px;margin-bottom:24px}
+.hero h1{border:none;padding:0;margin:0 0 8px;font-size:27px;color:#fff}
+.hero p{margin:4px 0;opacity:.95;font-size:14px}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.42);
+       border-radius:999px;padding:3px 12px;font-size:12px;margin:10px 8px 0 0}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 26px 24px;
+        margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:12px;
+      padding:15px 17px;text-decoration:none;color:var(--text);background:#fff;border-top:3px solid var(--brand);
+      transition:.15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,118,110,.13)}
+.ct{font-weight:700;font-size:15px}
+.cd{font-size:13px;color:var(--muted);line-height:1.6}
+.cf{font-size:11px;color:#9ca3af;font-family:"SF Mono",Menlo,monospace}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.shot{text-decoration:none;color:var(--text);border:1px solid var(--line);border-radius:12px;
+      overflow:hidden;background:#fff}
+.shot img{margin:0;border:none;border-radius:0;box-shadow:none;display:block}
+.cap{padding:10px 14px;font-size:12.5px;color:#475569}
+.grade{display:inline-block;border-radius:8px;padding:4px 12px;font-size:13px;font-weight:700}
+.g-A{background:#dcfce7;color:#15803d;border:1px solid #86efac}
+.g-B{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
+.g-C{background:#fef3c7;color:#b45309;border:1px solid #fcd34d}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
+</style></head>
+<body><div class="topbar"><a href="../../README.md">← 返回技能库</a><span class="name">platform-spec-adapter</span></div><div class="wrap"><div class="hero">
+<h1>平台规格适配（图像）</h1>
+<p>把一套主素材按各平台尺寸与比例要求适配，输出规格清单与适配参数，避免反复返工</p>
+<p style="margin-top:10px"><span class="grade g-C">C 级 · 提示词实测</span></p>
+<p><span class="badge">L1 原子技能</span><span class="badge">复杂度 M</span><span class="badge">阶段 P1</span><span class="badge">v1.0.0</span><span class="badge">无脚本依赖</span></p>
+</div>
+<section><h2>验证状态</h2>
+<p><b>C 级 · 提示词实测</b>　依据：纯提示词技能；已加载并用 OPC 一人公司真实材料执行，产出符合输出契约、质检通过、零编造（记录见 `docs/05-验收与测试.md`）　结果：平台兼容校验通过 + OPC 材料实测通过（96/96）</p>
+<p class="cd">复现命令（在技能库根目录执行）：<code>python3 tests/run.py
+<section><h2>交付文档</h2><div class="grid"><a class="card" href="README.html"><span class="ct">项目说明</span><span class="cd">价值、解决什么问题、快速开始、FAQ、目录结构</span><span class="cf">README.html</span></a><a class="card" href="docs/使用手册.html"><span class="ct">使用手册</span><span class="cd">安装、参数总表、输出物说明、排错手册</span><span class="cf">docs/使用手册.html</span></a><a class="card" href="docs/使用示例.html"><span class="ct">使用示例</span><span class="cd">可直接复制的示例，含真实运行输出</span><span class="cf">docs/使用示例.html</span></a><a class="card" href="docs/用户场景.html"><span class="ct">用户场景</span><span class="cd">谁、什么时机、说什么、得到什么、注意什么</span><span class="cf">docs/用户场景.html</span></a><a class="card" href="docs/架构与流程图.html"><span class="ct">架构与流程图</span><span class="cd">业务架构、执行流程、脚本与模型分工、扩展指南</span><span class="cf">docs/架构与流程图.html</span></a><a class="card" href="SKILL.md"><span class="ct">技能定义 SKILL.md</span><span class="cd">触发词、能力边界、使用方式</span><span class="cf">SKILL.md</span></a><a class="card" href="references/architecture.md"><span class="ct">字段与依赖速查</span><span class="cd">输入契约、脚本清单、质量门、已知陷阱</span><span class="cf">references/architecture.md</span></a></div></section>
+<section><h2>效果与架构</h2><div class="shots"><a class="shot" href="docs/images/04-terminal-run.png"><img src="docs/images/04-terminal-run.png" alt="真实运行（本仓库实测捕获）"><span class="cap">真实运行（本仓库实测捕获）</span></a><a class="shot" href="docs/images/05-terminal-verify.png"><img src="docs/images/05-terminal-verify.png" alt="平台兼容校验（真实输出）"><span class="cap">平台兼容校验（真实输出）</span></a><a class="shot" href="docs/images/01-architecture.png"><img src="docs/images/01-architecture.png" alt="业务架构"><span class="cap">业务架构</span></a><a class="shot" href="docs/images/02-workflow.png"><img src="docs/images/02-workflow.png" alt="执行流程"><span class="cap">执行流程</span></a><a class="shot" href="docs/images/03-decision-matrix.png"><img src="docs/images/03-decision-matrix.png" alt="脚本与模型分工 / 质量门"><span class="cap">脚本与模型分工 / 质量门</span></a><a class="shot" href="docs/images/08-demo-run.gif"><img src="docs/images/08-demo-run.gif" alt="会话录制（动图回放）"><span class="cap">会话录制（动图回放）</span></a></div></section>
+<section><h2>关联物料</h2><div class="grid">
+<a class="card" href="demo/walkthrough.html"><span class="ct">演示页</span><span class="cd">真实会话回放 + 关键结论</span><span class="cf">demo/walkthrough.html</span></a>
+<a class="card" href="examples/output/session.txt"><span class="ct">真实会话日志</span><span class="cd">命令、输出、退出码原样保留</span><span class="cf">examples/output/session.txt</span></a>
+<a class="card" href="docs/images/08-demo-run.mp4"><span class="ct">录屏视频</span><span class="cd">同源录制的 mp4</span><span class="cf">docs/images/08-demo-run.mp4</span></a>
+<a class="card"><span class="ct">归属</span><span class="cd">电商 AI 商品视觉</span><span class="cf">visibility: platform_shared</span></a>
+</div></section>
+<div class="footer">生成于 2026-09-30 · 本平台资产库 交付物</div>
+</div></body></html>

@@ -1,0 +1,56 @@
+version: 1.0.0
+employee: de-ecommerce-visual-designer
+policy:
+  default_access: read-only
+  write_requires_human: true
+  credential_location: 环境变量（如 ${conn_reddit_token}），不得写入仓库
+  audit: 每次调用记录到 logs/connector-audit.jsonl（不入 Git）
+bindings:
+- id: conn_llm_inference
+  name: LLM 推理 API
+  category: 运行层
+  provider: 多供应商可替换（开源/低价模型兜底 + 商用 API 分层）
+  access: read
+  scope: global
+  human_confirm_required: true
+  human_confirm_reason: 所有写操作与对外发布一律人工确认后执行
+  compliance_boundary: 不做模型选型锁定；模型是可替换燃料
+  mock_fallback: 本地小模型 / 规则模板
+  status: unbound
+  note: 凭证由部署方注入环境变量，绝不入库
+- id: conn_publish_endpoint
+  name: 平台发布端点（Coze/Dify/WorkBuddy）
+  category: 分发
+  provider: 智能体平台导入接口
+  access: write_reserved
+  scope: global
+  human_confirm_required: true
+  human_confirm_reason: 所有写操作与对外发布一律人工确认后执行
+  compliance_boundary: 资产以标准 SKILL.md / manifest 格式导入；不绑定单一平台
+  mock_fallback: 手动复制导入
+  status: unbound
+  note: 凭证由部署方注入环境变量，绝不入库
+- id: conn_image_gen
+  name: 图像生成模型 API
+  category: 多模态
+  provider: 文生图 / 图生图
+  access: read
+  scope: employee
+  human_confirm_required: true
+  human_confirm_reason: 所有写操作与对外发布一律人工确认后执行
+  compliance_boundary: 须确认商用授权；产出须标注 AI 合成；拒绝侵权与夸大功效
+  mock_fallback: 本地图库合成 / 模板拼版
+  status: unbound
+  note: 凭证由部署方注入环境变量，绝不入库
+- id: conn_ocr
+  name: OCR 文字识别
+  category: 多模态
+  provider: 通用 OCR
+  access: read
+  scope: employee
+  human_confirm_required: true
+  human_confirm_reason: 所有写操作与对外发布一律人工确认后执行
+  compliance_boundary: 图内文案识别结果仅用于合规检测，不外传原图
+  mock_fallback: 人工录入
+  status: unbound
+  note: 凭证由部署方注入环境变量，绝不入库

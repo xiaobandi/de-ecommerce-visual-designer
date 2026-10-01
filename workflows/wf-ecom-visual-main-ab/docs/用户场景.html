@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>主图 A/B 版本生成 · 用户场景</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+      --brand:#0f766e;--brand-soft:#f0fdfa;--code-bg:#f3f4f6;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-size:15px;line-height:1.78;
+     font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);backdrop-filter:blur(8px);
+        border-bottom:1px solid var(--line);padding:10px 24px;display:flex;gap:12px;align-items:center;font-size:13px}
+.topbar a{color:var(--brand);text-decoration:none;font-weight:600}
+.topbar .name{color:var(--muted)}
+.wrap{max-width:920px;margin:0 auto;padding:28px 24px 80px}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:38px 46px;
+     box-shadow:0 1px 3px rgba(0,0,0,.04)}
+h1{font-size:27px;margin:0 0 10px;padding-bottom:14px;border-bottom:2px solid var(--brand)}
+h2{font-size:20px;margin:34px 0 12px;padding-left:12px;border-left:4px solid var(--brand)}
+h3{font-size:17px;margin:24px 0 8px}
+h4{font-size:15px;margin:18px 0 6px;color:#374151}
+a{color:var(--brand)}
+code{background:var(--code-bg);padding:2px 6px;border-radius:4px;font-size:13px;
+     font-family:"SF Mono",Menlo,Consolas,monospace}
+pre{background:#0f172a;color:#e2e8f0;padding:16px 18px;border-radius:10px;overflow-x:auto;line-height:1.62}
+pre code{background:none;color:inherit;padding:0;font-size:12.5px}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+th{background:var(--brand-soft);text-align:left}
+th,td{border:1px solid var(--line);padding:9px 12px;vertical-align:top}
+tr:nth-child(even) td{background:#fafafa}
+blockquote{margin:14px 0;padding:11px 18px;background:var(--brand-soft);
+           border-left:4px solid var(--brand);border-radius:0 8px 8px 0;color:#475569}
+blockquote p{margin:4px 0}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;margin:14px 0;
+    box-shadow:0 1px 3px rgba(0,0,0,.06)}
+hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+ul,ol{padding-left:26px}li{margin:5px 0}
+.hero{background:linear-gradient(135deg,#0f766e,#0d9488 55%,#14b8a6);color:#fff;
+      border-radius:16px;padding:32px 36px;margin-bottom:24px}
+.hero h1{border:none;padding:0;margin:0 0 8px;font-size:27px;color:#fff}
+.hero p{margin:4px 0;opacity:.95;font-size:14px}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.42);
+       border-radius:999px;padding:3px 12px;font-size:12px;margin:10px 8px 0 0}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 26px 24px;
+        margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:12px;
+      padding:15px 17px;text-decoration:none;color:var(--text);background:#fff;border-top:3px solid var(--brand);
+      transition:.15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,118,110,.13)}
+.ct{font-weight:700;font-size:15px}
+.cd{font-size:13px;color:var(--muted);line-height:1.6}
+.cf{font-size:11px;color:#9ca3af;font-family:"SF Mono",Menlo,monospace}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.shot{text-decoration:none;color:var(--text);border:1px solid var(--line);border-radius:12px;
+      overflow:hidden;background:#fff}
+.shot img{margin:0;border:none;border-radius:0;box-shadow:none;display:block}
+.cap{padding:10px 14px;font-size:12.5px;color:#475569}
+.grade{display:inline-block;border-radius:8px;padding:4px 12px;font-size:13px;font-weight:700}
+.g-A{background:#dcfce7;color:#15803d;border:1px solid #86efac}
+.g-B{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
+.g-C{background:#fef3c7;color:#b45309;border:1px solid #fcd34d}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
+</style></head>
+<body><div class="topbar"><a href="../index.html">← 交付物导航</a><span class="name">主图 A/B 版本生成</span><span class="name" style="margin-left:auto">wf-ecom-visual-main-ab</span></div><div class="wrap"><div class="doc">
+<h1>用户场景</h1>
+<p>按「谁 → 什么情况下 → 说什么 → 得到什么 → 注意什么」组织。每个场景都能照着跑一遍。</p>
+<hr>
+<blockquote>⚠️ 本技能尚未填写真实场景（<code>scenarios</code>），下面为<strong>通用推导</strong>，信息量有限。</blockquote>
+<h2>场景一 · 电商 AI 商品视觉的日常用法</h2>
+<ul><li><strong>角色</strong>：电商 AI 商品视觉</li><li><strong>触发时机</strong>：需要「主图 A/B 版本生成」这件事有结果的时候</li><li><strong>他会说</strong>：<code>用 wf-ecom-visual-main-ab 帮我主图 A/B 版本生成</code></li><li><strong>需要准备</strong>：流程起始材料（见执行步骤第 1 步）；用户身份与目标渠道/平台</li><li><strong>拿到什么</strong>：主图 A/B 版本生成交付物（按执行步骤逐步产出）</li><li><strong>容易踩的坑</strong>：AI 生成最容易改掉商品细节（logo、纹理），必须逐项比对</li></ul>
+<hr>
+<h2>场景二 · 换成你自己的材料</h2>
+<p>同一句话，把材料换成你手头的真实数据即可：</p>
+<pre data-lang="text"><code>用 wf-ecom-visual-main-ab 处理下面这份材料：
+&lt;粘贴你的内容 / 贴文件路径&gt;</code></pre>
+<p><strong>输入结构不要改</strong>：字段名变了，脚本会读不到；缺字段时应当被明确告知缺什么，而不是猜。</p>
+<table><thead><tr><th>字段</th><th>必填</th><th>说明</th></tr></thead><tbody><tr><td>流程起始材料（见执行步骤第 1 步）</td><td>✅</td><td>缺失会导致输出不可用</td></tr><tr><td>用户身份与目标渠道/平台</td><td>✅</td><td>缺失会导致输出不可用</td></tr><tr><td>历史产出</td><td>⬜</td><td>有则更好</td></tr><tr><td>账号人设</td><td>⬜</td><td>有则更好</td></tr><tr><td>渠道规则</td><td>⬜</td><td>有则更好</td></tr><tr><td>上一周期数据</td><td>⬜</td><td>有则更好</td></tr></tbody></table>
+<hr>
+<h2>场景三 · 边界情况（重要）</h2>
+<p>这几条写清楚做不到什么，比列一堆能力更有用：</p>
+<ul><li>只负责本工作流这一条链路，不承担所属员工的其它职责</li><li>步骤与原子技能是<strong>指示性映射</strong>，允许按实际情况调整，不是强制编排</li><li>中途缺料必须停下来问，不允许用假设补齐</li><li>本工作流共 3 步，<strong>中途缺料要停下来问</strong>，不要用假设把链路填满——填出来的结果是废的</li></ul>
+<hr>
+<h2>场景速查</h2>
+<table><thead><tr><th>场景</th><th>使用者</th><th>触发词</th><th>产出</th></tr></thead><tbody><tr><td>标准用法</td><td>电商 AI 商品视觉</td><td>主图 A/B 版本生成</td><td>主图 A/B 版本生成交付物（按执行步骤逐步产出）</td></tr><tr><td>换材料</td><td>任何人</td><td>主图 A/B 版本生成</td><td>同上（输入结构不变）</td></tr><tr><td>缺料</td><td>任何人</td><td>同上</td><td>明确告知缺什么，不猜</td></tr></tbody></table>
+</div>
+<div class="footer">生成于 2026-09-30 · 本平台资产库 交付物</div>
+</div></body></html>

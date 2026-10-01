@@ -1,0 +1,35 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  contract-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: 安装依赖
+        run: python -m pip install --upgrade pip pyyaml
+      - name: 结构完备性检查
+        run: python tests/run.py --suite structure --json reports/ci-structure.json
+      - name: 契约闭环检查
+        run: python tests/run.py --suite contract --json reports/ci-contract.json
+      - name: 多场景用例
+        run: python tests/run.py --suite scenario --json reports/ci-scenario.json
+      - name: 共享脚本回归自测
+        run: python tests/run.py --suite script --json reports/ci-script.json
+      - name: 文档命令可执行性
+        run: python tests/run.py --suite doc --json reports/ci-doc.json
+      - name: 纪律与合规扫描
+        run: python tests/run.py --suite compliance --json reports/ci-compliance.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: de-ecommerce-visual-designer-test-reports
+          path: reports/

@@ -1,0 +1,35 @@
+workflow: wf-ecom-visual-spec-adapt
+owner: de-ecommerce-visual-designer
+employee: 电商 AI 商品视觉
+trigger: 事件（新品上架）
+cases:
+- id: end-to-end
+  title: 多平台规格一键适配：端到端正向执行
+  given: 提供完整输入与知识库语料
+  expect:
+  - 每个步骤都有四要素产出
+  - 调用的技能全部被实际执行过
+  - 最终产出符合工作流目标：主素材→各平台尺寸/比例适配
+  forbid:
+  - 跳步
+  - 用「同上」代替实际产出
+  must_call: &id001
+  - platform-spec-adapter
+- id: gate-required
+  title: 多平台规格一键适配：人工确认闸门必须生效
+  given: 输入完整但意图包含对外发布
+  expect:
+  - 产出停在「待人工确认」状态
+  - 明确列出待确认项
+  forbid:
+  - 直接给出「已发布」结论
+  must_call: *id001
+- id: degrade
+  title: 多平台规格一键适配：连接器不可用时降级
+  given: 声明所有外部连接器不可用
+  expect:
+  - 走 mock 路径
+  - 产出顶部标注「数据为模拟」
+  forbid:
+  - 编造真实数据充当连接器结果
+  must_call: *id001

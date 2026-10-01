@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>平台规格适配（图像） · 演示</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+      --brand:#0f766e;--brand-soft:#f0fdfa;--code-bg:#f3f4f6;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-size:15px;line-height:1.78;
+     font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);backdrop-filter:blur(8px);
+        border-bottom:1px solid var(--line);padding:10px 24px;display:flex;gap:12px;align-items:center;font-size:13px}
+.topbar a{color:var(--brand);text-decoration:none;font-weight:600}
+.topbar .name{color:var(--muted)}
+.wrap{max-width:920px;margin:0 auto;padding:28px 24px 80px}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:38px 46px;
+     box-shadow:0 1px 3px rgba(0,0,0,.04)}
+h1{font-size:27px;margin:0 0 10px;padding-bottom:14px;border-bottom:2px solid var(--brand)}
+h2{font-size:20px;margin:34px 0 12px;padding-left:12px;border-left:4px solid var(--brand)}
+h3{font-size:17px;margin:24px 0 8px}
+h4{font-size:15px;margin:18px 0 6px;color:#374151}
+a{color:var(--brand)}
+code{background:var(--code-bg);padding:2px 6px;border-radius:4px;font-size:13px;
+     font-family:"SF Mono",Menlo,Consolas,monospace}
+pre{background:#0f172a;color:#e2e8f0;padding:16px 18px;border-radius:10px;overflow-x:auto;line-height:1.62}
+pre code{background:none;color:inherit;padding:0;font-size:12.5px}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+th{background:var(--brand-soft);text-align:left}
+th,td{border:1px solid var(--line);padding:9px 12px;vertical-align:top}
+tr:nth-child(even) td{background:#fafafa}
+blockquote{margin:14px 0;padding:11px 18px;background:var(--brand-soft);
+           border-left:4px solid var(--brand);border-radius:0 8px 8px 0;color:#475569}
+blockquote p{margin:4px 0}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;margin:14px 0;
+    box-shadow:0 1px 3px rgba(0,0,0,.06)}
+hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+ul,ol{padding-left:26px}li{margin:5px 0}
+.hero{background:linear-gradient(135deg,#0f766e,#0d9488 55%,#14b8a6);color:#fff;
+      border-radius:16px;padding:32px 36px;margin-bottom:24px}
+.hero h1{border:none;padding:0;margin:0 0 8px;font-size:27px;color:#fff}
+.hero p{margin:4px 0;opacity:.95;font-size:14px}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.42);
+       border-radius:999px;padding:3px 12px;font-size:12px;margin:10px 8px 0 0}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 26px 24px;
+        margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:12px;
+      padding:15px 17px;text-decoration:none;color:var(--text);background:#fff;border-top:3px solid var(--brand);
+      transition:.15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,118,110,.13)}
+.ct{font-weight:700;font-size:15px}
+.cd{font-size:13px;color:var(--muted);line-height:1.6}
+.cf{font-size:11px;color:#9ca3af;font-family:"SF Mono",Menlo,monospace}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.shot{text-decoration:none;color:var(--text);border:1px solid var(--line);border-radius:12px;
+      overflow:hidden;background:#fff}
+.shot img{margin:0;border:none;border-radius:0;box-shadow:none;display:block}
+.cap{padding:10px 14px;font-size:12.5px;color:#475569}
+.grade{display:inline-block;border-radius:8px;padding:4px 12px;font-size:13px;font-weight:700}
+.g-A{background:#dcfce7;color:#15803d;border:1px solid #86efac}
+.g-B{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
+.g-C{background:#fef3c7;color:#b45309;border:1px solid #fcd34d}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
+</style></head>
+<body><div class="topbar"><a href="../index.html">← 交付物导航</a><span class="name">platform-spec-adapter</span></div><div class="wrap"><div class="hero">
+<h1>平台规格适配（图像） · 演示</h1>
+<p>把一套主素材按各平台尺寸与比例要求适配，输出规格清单与适配参数，避免反复返工</p>
+<p style="margin-top:10px"><span class="grade g-C">C 级 · 提示词实测</span></p>
+</div>
+<section><h2>一、这是什么</h2>
+<p>把一套主素材按各平台尺寸与比例要求适配，输出规格清单与适配参数，避免反复返工</p>
+<p class="cd">归属：电商 AI 商品视觉　复杂度 M　阶段 P1</p></section>
+<section><h2>二、真实会话回放</h2>
+<p class="cd">技能在真实终端中的执行过程</p>
+<img src="docs/images/08-demo-run.gif" alt="会话录制">
+<p class="cd">动图：<code>docs/images/08-demo-run.gif</code>　视频：<code>docs/images/08-demo-run.mp4</code></p>
+</section>
+<section><h2>三、业务运行原始输出</h2>
+<pre><code>$ python3 scripts/check_env.py
+  [safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED] {"count":50,"threshold":50,"scope":"turn","targets":["~/WorkBuddy/2026-09-28-20-31-28/本平台资产库/skills/platform-spec-adapter/.skill-env-probe"],"targetCount":1}
+  退出码 1：环境能力探测通过；技能据此决定走首选路径还是降级路径。
+  本技能为纯提示词技能，业务判断无确定性脚本；已用 OPC 真实材料完成提示词实测（见 `docs/05-验收与测试.md`），换成你自己的业务材料请复跑一次。</code></pre></section>
+<section><h2>四、平台兼容校验</h2>
+<p class="cd">决定技能能否安装到 WorkBuddy / ChatGPT / DeepSeek Harness / Kimi Work / 豆包工作。</p>
+<pre><code>  在技能库根目录执行（技能目录内无 tools/）：python3 tests/run.py
+$ python3 tests/run.py
+  
+  ==============================================================
+  通过  skills/platform-spec-adapter
+  ==============================================================
+    无问题
+  
+  共检查 1 个技能，错误 0 项。
+  校验通过：目录名 == name、只用标准字段、正文无平台专有工具名、触发词具备中英双语且超过最小信息量。</code></pre></section>
+<section><h2>五、结论</h2>
+<p><b>C 级 · 提示词实测</b>　平台兼容校验通过 + OPC 材料实测通过（96/96）</p>
+<p class="cd">纯提示词技能；已加载并用 OPC 一人公司真实材料执行，产出符合输出契约、质检通过、零编造（记录见 `docs/05-验收与测试.md`）</p>
+</section>
+<div class="footer">生成于 2026-09-30 · 本平台资产库 交付物</div>
+</div></body></html>

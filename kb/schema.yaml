@@ -1,0 +1,35 @@
+version: 1.0.0
+employee: de-ecommerce-visual-designer
+embedding:
+  model: <由部署方指定>
+  dim: <待填>
+  normalize: true
+chunking:
+  strategy: semantic+overlap
+  max_tokens: 512
+  overlap_tokens: 64
+  keep_headers: true
+  reason: 长文档按语义边界切，保留标题层级，便于产出里回指出处
+retrieval:
+  top_k: 8
+  rerank: true
+  rerank_top_n: 3
+  min_score: 0.35
+  min_score_reason: 低于该分视为无匹配，必须回「知识库无匹配」而不是硬答
+citation:
+  required: true
+  format: '来源: <file>#<chunk_id>'
+  stale_after_days: 180
+collections:
+- name: 商品素材库+品牌规范+平台规格参数表（RAG 需求低，按店铺隔离）
+  source: <待填>
+  update: <待填>
+  owner: <待填>
+  pii: unknown
+pii_policy:
+  mask:
+  - 手机号
+  - 身份证
+  - 详细地址
+  - 银行卡
+  note: 入库前脱敏；检索结果命中 PII 时先脱敏再输出
