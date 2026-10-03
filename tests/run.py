@@ -364,11 +364,28 @@ def suite_contract(res: Result, flt: str | None) -> None:
     if kind == "hub" and (ROOT / "catalog" / "employees.yaml").exists():
         cat = read_yaml(ROOT / "catalog" / "employees.yaml")
         res.add("contract", "入口清单非空", bool(cat.get("employees")))
+        # 32 个仓**各自独立发布**，入口仓里不可能存在员工仓目录。原先断言
+        # `(ROOT.parent / repo).is_dir()` 只在"本地 32 仓并排于 repos/"这一
+        # 构建布局下成立，一上 CI / GitHub 就必然全红（实测 30 条失败）——
+        # 那是把构建布局误当成契约。正确判据是：入口仓对每个员工都建立了
+        # **绝对地址**的可达引用。账号从索引自身的链接里解析，不写死。
+        idx = []
+        for rel in ("README.md", "catalog/employees.md", "catalog/by-group.md",
+                    "catalog/by-phase.md", "catalog/by-channel.md"):
+            f = ROOT / rel
+            if f.exists():
+                idx.append(f.read_text(encoding="utf-8", errors="ignore"))
+        blob = "\n".join(idx)
+        m = re.search(r"https://github\.com/([A-Za-z0-9._-]+)/", blob)
+        owner = m.group(1) if m else ""
+        res.add("contract", "索引以绝对地址引用他仓（不得用 ../ 相对路径）",
+                bool(owner) and not re.search(r"\]\(\.\./", blob))
         for e in cat.get("employees", []):
             if flt and flt not in e["repo"]:
                 continue
-            res.add("contract", f"{e['repo']}: 员工仓目录存在",
-                    (ROOT.parent / e["repo"]).is_dir())
+            res.add("contract", f"{e['repo']}: 已有绝对地址可达引用",
+                    bool(owner)
+                    and f"https://github.com/{owner}/{e['repo']}" in blob)
         res.add("contract", "分类维度齐备",
                 all((ROOT / "catalog" / f).exists() for f in
                     ["by-group.md", "by-phase.md", "by-channel.md"]))
