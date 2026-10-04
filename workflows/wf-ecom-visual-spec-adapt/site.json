@@ -1,0 +1,15 @@
+{
+  "name": "wf-ecom-visual-spec-adapt",
+  "title": "多平台规格一键适配",
+  "kind": "workflow",
+  "owner": "de-ecommerce-visual-designer",
+  "complexity": "M",
+  "phase": "P1",
+  "one_liner": "主素材→各平台尺寸/比例适配",
+  "pages": [
+    "docs/使用手册.html",
+    "docs/使用示例.html",
+    "docs/用户场景.html",
+    "docs/架构与流程图.html"
+  ]
+}

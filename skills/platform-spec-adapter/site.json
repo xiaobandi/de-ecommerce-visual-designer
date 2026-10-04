@@ -1,0 +1,15 @@
+{
+  "name": "platform-spec-adapter",
+  "title": "平台规格适配",
+  "kind": "skill",
+  "owner": "de-ecommerce-visual-designer",
+  "complexity": "S",
+  "phase": "P1",
+  "one_liner": "",
+  "pages": [
+    "docs/使用手册.html",
+    "docs/使用示例.html",
+    "docs/用户场景.html",
+    "docs/架构与流程图.html"
+  ]
+}

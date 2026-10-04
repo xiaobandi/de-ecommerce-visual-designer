@@ -1,0 +1,15 @@
+{
+  "name": "wf-ecom-visual-compliance-precheck",
+  "title": "平台合规预审",
+  "kind": "workflow",
+  "owner": "de-ecommerce-visual-designer",
+  "complexity": "S",
+  "phase": "P0",
+  "one_liner": "图上文案 OCR→极限词检测→修改建议",
+  "pages": [
+    "docs/使用手册.html",
+    "docs/使用示例.html",
+    "docs/用户场景.html",
+    "docs/架构与流程图.html"
+  ]
+}

@@ -10,6 +10,7 @@
   scenario   多场景用例：把 tests/cases.yaml 的每条期望，对照产出正文做"可执行性"断言
   script     共享脚本回归：对每个自带 --selftest 的 .py 跑内嵌断言（确定性，不需要 LLM）
   doc        文档命令可执行性：文档里写出来的命令，照抄必须跑得通（路径可达 + cwd 明确）
+             —— 真实执行台账 `docs/实测记录.md` 除外（它是证据，不是操作手册）
   compliance 纪律与合规：红线声明齐备、无密钥、无真实 PII、许可齐备、无本机绝对路径
 
 为什么 scenario 能不开 LLM 就跑：
@@ -90,6 +91,26 @@ ABS_PATH_RE = re.compile(r"/(?:Users|home)/[A-Za-z0-9_.-]+/")
 
 # 文档里的可执行命令：`python3 <某路径>.py`（路径可含 ../../）
 DOC_CMD_RE = re.compile(r"python3\s+((?:\.\./|\./)?[A-Za-z0-9_./-]+\.py)")
+
+# 真实执行台账（`docs/实测记录.md`）：由构建器从构建区真跑的逐字回放生成，
+# 是**证据**而不是操作手册。里面的 `$ ...` 行记录的是当时构建区的 cwd（例如
+# 库根的 `content/scripts/`、库根 `tools/validate.py`），相对路径天然不落在
+# 本发布仓里。为了让它们"在本仓可达"而改写路径，等于篡改实测证据——与
+# 「台账自证效果」的初衷相悖。因此该文件只受事实性/合规校验（PII、绝对路径
+# 泄漏、红线声明），不受「命令可复现」校验。
+#
+# 判定按**内容标记**而非文件名：人工手写的同名文档不该被一起放过。
+TRANSCRIPT_MARK = "本文件是**真实执行台账**"
+
+
+def is_transcript(p: Path) -> bool:
+    """是否为构建器生成的真实执行台账（按内容标记判定，只看开头 800 字）。"""
+    if p.name != "实测记录.md":
+        return False
+    try:
+        return TRANSCRIPT_MARK in p.read_text(encoding="utf-8", errors="ignore")[:800]
+    except OSError:
+        return False
 
 
 class Result:
@@ -245,7 +266,9 @@ def suite_structure(res: Result, flt: str | None) -> None:
         res.add("structure", "技能层非空（私有技能 ∪ spec 绑定 ∪ core 依赖）",
                 _skill_layer_count() > 0, f"实际 {_skill_layer_count()} 项")
 
-    # 工作流
+    # 工作流：与技能**同一套标准**——正文是 SKILL.md，不是 WORKFLOW.md。
+    # 工作流只是 layer: L2-workflow 的技能，不是另一个物种；给它单开一个文件名
+    # （WORKFLOW.md）等于开了个"不是 SKILL"的例外，客户端按 SKILL 约定加载时找不到它。
     wfd = ROOT / "workflows"
     n_wf = 0
     if wfd.is_dir():
@@ -253,14 +276,22 @@ def suite_structure(res: Result, flt: str | None) -> None:
             n_wf += 1
             if flt and flt not in d.name:
                 continue
-            f = d / "WORKFLOW.md"
-            res.add("structure", f"{d.name}: WORKFLOW.md 存在", f.exists())
+            f = d / "SKILL.md"
+            res.add("structure", f"{d.name}: SKILL.md 存在", f.exists())
+            res.add("structure", f"{d.name}: 不存在 WORKFLOW.md 例外文件",
+                    not (d / "WORKFLOW.md").exists())
             if f.exists():
                 fm = front_matter(f)
+                res.add("structure", f"{d.name}: SKILL.md frontmatter 可解析", bool(fm))
                 res.add("structure", f"{d.name}: 目录名 == frontmatter name",
-                        fm.get("name") == d.name)
-                res.add("structure", f"{d.name}: 声明了 layer=L2-workflow",
-                        (fm.get("metadata") or {}).get("layer") == "L2-workflow")
+                        fm.get("name") == d.name,
+                        f"目录 {d.name} / name {fm.get('name')}")
+                res.add("structure", f"{d.name}: name 符合 kebab-case",
+                        bool(re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", d.name or "")))
+                res.add("structure", f"{d.name}: license 已声明", bool(fm.get("license")))
+                md = fm.get("metadata") or {}
+                res.add("structure", f"{d.name}: metadata.layer 合法",
+                        md.get("layer") in {"L1-skill", "L2-workflow"})
             res.add("structure", f"{d.name}: tests/cases.yaml 存在",
                     (d / "tests" / "cases.yaml").exists())
 
@@ -413,7 +444,7 @@ def suite_scenario(res: Result, flt: str | None) -> None:
         res.add("scenario", f"{slug}: 用例数 ≥ 3", len(cases) >= 3, f"{len(cases)} 条")
         # 找到对应的产出正文
         doc = None
-        for cand in (cf.parent.parent / "SKILL.md", cf.parent.parent / "WORKFLOW.md",
+        for cand in (cf.parent.parent / "SKILL.md",
                      ROOT / "README.md"):        # 入口仓的用例锚在根 README
             if cand.exists():
                 doc = cand.read_text(encoding="utf-8")
@@ -524,7 +555,7 @@ def suite_compliance(res: Result, flt: str | None) -> None:
     docs = []
     for d in (ROOT / "skills").glob("*/SKILL.md") if (ROOT / "skills").is_dir() else []:
         docs.append(d)
-    for d in (ROOT / "workflows").glob("*/WORKFLOW.md") if (ROOT / "workflows").is_dir() else []:
+    for d in (ROOT / "workflows").glob("*/SKILL.md") if (ROOT / "workflows").is_dir() else []:
         docs.append(d)
     for d in docs:
         if flt and flt not in d.parent.name:
@@ -619,9 +650,11 @@ def suite_doc(res: Result, flt: str | None) -> None:
     判据：命令里的 `*.py` 路径，在「命令所在目录」或「仓库根」下至少存在一个；
     并且校验类命令必须带 cwd 说明。
 
-    **作用域只取 `skills/` 与 `workflows/` 子树**（这些是随技能一起发布的文档）。
-    库根 `docs/`、`examples/`、`demo/` 下的叙述文会引用"在某技能目录内执行"的
-    相对命令，那是行文口径问题而非断链，不在此套件判定范围内。
+    **作用域只取 `skills/` 与 `workflows/` 子树**（这些是随技能一起发布的文档），
+    且**排除真实执行台账** `docs/实测记录.md`（见 `is_transcript`）：台账是逐字
+    回放的证据，不是操作手册，其中的相对路径记录的是当时构建区的 cwd。库根
+    `docs/`、`examples/`、`demo/` 下的叙述文会引用"在某技能目录内执行"的相对
+    命令，那是行文口径问题而非断链，不在此套件判定范围内。
     """
     roots = [r for r in (ROOT / "skills", ROOT / "workflows") if r.is_dir()]
     if not roots:
@@ -632,9 +665,13 @@ def suite_doc(res: Result, flt: str | None) -> None:
         res.skip("doc", "校验命令写明了执行目录（cwd）",
                  "本仓不含 skills/ 与 workflows/ 文档（入口汇总仓）")
         return
-    text_files = [p for r in roots for p in r.rglob("*")
-                  if p.is_file() and p.suffix in {".md", ".html", ".txt"}
-                  and not any(x in p.parts for x in (".git", "reports", "node_modules"))]
+    scoped = [p for r in roots for p in r.rglob("*")
+              if p.is_file() and p.suffix in {".md", ".html", ".txt"}
+              and not any(x in p.parts for x in (".git", "reports", "node_modules"))]
+    # 台账单独计数：它是证据，按设计不参与「命令可复现」校验，但必须在报告里
+    # 可见——否则这份豁免会变成悄悄少检，日后无人能分辨是漏检还是有意跳过。
+    transcripts = [p for p in scoped if is_transcript(p)]
+    text_files = [p for p in scoped if p not in transcripts]
 
     broken: list[str] = []
     total_cmds = 0
@@ -684,6 +721,15 @@ def suite_doc(res: Result, flt: str | None) -> None:
             missing_cwd.append(f"{f.relative_to(ROOT)}:{i + 1}: {line.strip()[:70]}")
     res.add("doc", "校验命令写明了执行目录（cwd）", not missing_cwd,
             f"{len(missing_cwd)} 处未标注：" + "; ".join(missing_cwd[:5]))
+
+    # 台账豁免必须**可见**：名单随报告落盘，谁被放过、为什么放过，一眼可查。
+    # 用 skip 而不是 add(True)：这是一条"尺子不适用"，不是一条"量过且合格"。
+    # 记成通过会制造一条永不失败的断言，把通过率注水。
+    if transcripts:
+        res.skip("doc", "真实执行台账不参与命令可复现性校验",
+                 f"{len(transcripts)} 份（逐字回放，cwd 为当时构建区）："
+                 + "; ".join(str(p.relative_to(ROOT)) for p in sorted(transcripts)[:3])
+                 + ("…" if len(transcripts) > 3 else ""))
 
 
 SUITES = {"structure": suite_structure, "contract": suite_contract,

@@ -1,0 +1,15 @@
+{
+  "name": "wf-ecom-visual-main-ab",
+  "title": "主图 A/B 版本生成",
+  "kind": "workflow",
+  "owner": "de-ecommerce-visual-designer",
+  "complexity": "S",
+  "phase": "P0",
+  "one_liner": "卖点→2-4 版主图→CTR 建议",
+  "pages": [
+    "docs/使用手册.html",
+    "docs/使用示例.html",
+    "docs/用户场景.html",
+    "docs/架构与流程图.html"
+  ]
+}

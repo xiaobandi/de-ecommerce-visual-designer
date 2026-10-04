@@ -7,6 +7,19 @@
 
 ![架构](docs/images/architecture.svg)
 
+## 效果（真实执行）
+
+![真实效果](workflows/wf-ecom-visual-compliance-precheck/docs/images/00-effect.png)
+
+*上图为**真实效果对比**，不是示意图：左栏是输入材料与要求，右栏是该次执行的产出原文，
+两栏取自同一次真实执行记录。*
+
+- 完整台账：[`reports/real-run/wf-ecom-visual-compliance-precheck.md`](reports/real-run/wf-ecom-visual-compliance-precheck.md)
+- 录屏与终端回放：[`workflows/wf-ecom-visual-compliance-precheck/docs/images/`](workflows/wf-ecom-visual-compliance-precheck/docs/images/)（`08-demo-run.gif` / `08-demo-run.mp4` / `04-terminal-run.png`）
+- 使用示例：[`workflows/wf-ecom-visual-compliance-precheck/docs/使用示例.md`](workflows/wf-ecom-visual-compliance-precheck/docs/使用示例.md)
+> 实测判定：**通过**　·　可用度 4/5　·　编造数字 0 处　·　红线命中 1 次 / 拦截 1 次
+
+
 **一句话**：月上新 5-50 款的四平台一人店/夫妻店
 
 ---
@@ -100,7 +113,7 @@ de-ecommerce-visual-designer/
 
 | 项 | 值 |
 |---|---|
-| 技能文件数 | 166 |
+| 技能文件数 | 172 |
 | 多场景用例数 | 209 |
 | 用例通过 | 209 |
 | 验收结论 | ✅ 通过 |

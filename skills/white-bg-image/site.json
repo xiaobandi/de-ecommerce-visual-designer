@@ -1,0 +1,15 @@
+{
+  "name": "white-bg-image",
+  "title": "白底图生成",
+  "kind": "skill",
+  "owner": "de-ecommerce-visual-designer",
+  "complexity": "M",
+  "phase": "P0",
+  "one_liner": "商品融入场景、光影一致（原图+生成图→保真评分）",
+  "pages": [
+    "docs/使用手册.html",
+    "docs/使用示例.html",
+    "docs/用户场景.html",
+    "docs/架构与流程图.html"
+  ]
+}

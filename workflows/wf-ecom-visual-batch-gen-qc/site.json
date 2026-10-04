@@ -1,0 +1,15 @@
+{
+  "name": "wf-ecom-visual-batch-gen-qc",
+  "title": "商品图批量生成与质检",
+  "kind": "workflow",
+  "owner": "de-ecommerce-visual-designer",
+  "complexity": "M",
+  "phase": "P0",
+  "one_liner": "素材→批量生成→保真校验→质检交付",
+  "pages": [
+    "docs/使用手册.html",
+    "docs/使用示例.html",
+    "docs/用户场景.html",
+    "docs/架构与流程图.html"
+  ]
+}

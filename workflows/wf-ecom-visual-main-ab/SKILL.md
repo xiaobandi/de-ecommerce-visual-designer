@@ -1,53 +1,68 @@
 ---
-name: wf-ecom-visual-spec-adapt
+name: wf-ecom-visual-main-ab
 description: >-
-  电商 AI 商品视觉 的「多平台规格一键适配」工作流：主素材→各平台尺寸/比例适配。触发方式：事件（新品上架）。
-  当用户要完成「多平台规格一键适配」这件事、或触发了上述条件时使用。
+  电商 AI 商品视觉 的「主图 A/B 版本生成」工作流：卖点→2-4 版主图→CTR 建议。触发方式：人工。
+  当用户要完成「主图 A/B 版本生成」这件事、或触发了上述条件时使用。
 license: Proprietary
+compatibility: >-
+  需要能读取工作区文件；若环境支持执行代码，将额外启用 scripts/ 下的确定性脚本路径。
+  跨 WorkBuddy / ChatGPT / DeepSeek Harness / Kimi Work / 豆包工作。
 metadata:
   author: PLATFORM
   version: "1.0.0"
   standard: agent-skills/v1
+  library: agent-skills-library
   layer: L2-workflow
   owner: de_ecommerce_visual_designer
-  complexity: M
-  phase: P1
+  repo: de-ecommerce-visual-designer
+  visibility: private_to_employee
+  delivery: employee
+  complexity: S
+  phase: P0
   source: library
 ---
 
-# 多平台规格一键适配
+# 主图 A/B 版本生成
 
-> 归属：**电商 AI 商品视觉**（`de-ecommerce-visual-designer`）　触发：事件（新品上架）　
-> 复杂度 M　阶段 P1
+> 归属：**电商 AI 商品视觉**（`de-ecommerce-visual-designer`）　触发：人工　
+> 复杂度 S　阶段 P0
 
 ## 一、这条工作流解决什么
 
-主素材→各平台尺寸/比例适配
+卖点→2-4 版主图→CTR 建议
 
-**业务收益**：月省 6h≈¥180
+**业务收益**：替代外包 ¥300/张
 
 ## 二、调用的 SKILL（必填列，逐条锁定版本）
 
 | 技能名 | slug | 来源仓 | 版本 |
 |---|---|---|---|
-| `平台规格适配` | `platform-spec-adapter` | 本仓 | v1.0.0 |
+| `白底图生成` | `white-bg-image` | 本仓 | v1.0.0 |
+| `文案排版` | `copy-layout` | core | v1.0.0 |
 
 > 公共技能来自 `agent-skills-core@1.0.0`，本仓库只做外部依赖引用，
 > **不内联复制**其正文——这是三层仓库体系的硬规则，避免同一能力多份副本各自漂移。
 
 ## 三、执行步骤（每步四要素齐备）
 
-### 步骤 1：主素材
+### 步骤 1：卖点
 
-- **做**：主素材
+- **做**：卖点
 - **输入来源**：用户提供的原始材料（工作流第 1 步没有「上一步」）/ 本员工知识库 `kb/` / 连接器只读数据；三者皆空时必须停在 G1 闸门
 - **依据与结论**：把本步结论对应到具体输入项
 - **未决 · 待填**：缺数据处写 `<待填>` 并给出获取方式
 
-### 步骤 2：各平台尺寸/比例适配
+### 步骤 2：2-4 版主图
 
-- **做**：各平台尺寸/比例适配
+- **做**：2-4 版主图
 - **输入来源**：步骤 1 的产出 / 本员工知识库 `kb/` / 连接器只读数据
+- **依据与结论**：把本步结论对应到具体输入项
+- **未决 · 待填**：缺数据处写 `<待填>` 并给出获取方式
+
+### 步骤 3：CTR 建议
+
+- **做**：CTR 建议
+- **输入来源**：步骤 2 的产出 / 本员工知识库 `kb/` / 连接器只读数据
 - **依据与结论**：把本步结论对应到具体输入项
 - **未决 · 待填**：缺数据处写 `<待填>` 并给出获取方式
 
