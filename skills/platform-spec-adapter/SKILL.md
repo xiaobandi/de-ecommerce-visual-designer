@@ -2,7 +2,7 @@
 name: platform-spec-adapter
 description: >-
   把一套主素材按各平台尺寸与比例要求适配，输出规格清单与适配参数，避免反复返工。当用户提到尺寸适配、规格适配、主图改尺寸、出一套各平台图、image spec adapter、resize for platforms 时使用——即使用户没有直接说出上述关键词，只要意图吻合也应触发。
-license: Proprietary
+license: Apache-2.0
 compatibility: >-
   需要能读取工作区文件。若环境支持执行代码，将额外启用 scripts/ 下的确定性脚本路径。跨 WorkBuddy / ChatGPT / DeepSeek Harness / Kimi Work / 豆包工作。
 metadata:

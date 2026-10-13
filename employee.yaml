@@ -17,7 +17,7 @@ metadata:
   - 闲鱼/淘宝（钩子 SKU）
   - 小红书
   - Coze扣子商店
-  license: Proprietary
+  license: Apache-2.0
   version: 1.0.0
 spec:
   positioning: 视觉设计师·小图 ｜ 一人店的"到岗美工"，只出能直接上架的合规商品图
