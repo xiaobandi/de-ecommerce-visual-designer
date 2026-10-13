@@ -5,6 +5,12 @@
 > **视觉设计师·小图**　·　电商商家　·　阶段 P0 首发　·　
 > 复杂度 M（AI 模特换装为 L 排 P2）　·　30-100 元/月　·　定义卡 6.4-①
 
+## 演示（真实执行录播）
+
+![演示](workflows/wf-ecom-visual-compliance-precheck/docs/images/08-demo-run.gif)
+
+*真实执行回放（GIF 自动循环，非摆拍）· [▶ 观看完整版 MP4](workflows/wf-ecom-visual-compliance-precheck/docs/images/08-demo-run.mp4) · 台账见 [`reports/real-run/wf-ecom-visual-compliance-precheck.md`](reports/real-run/wf-ecom-visual-compliance-precheck.md)*
+
 ![架构](docs/images/architecture.svg)
 
 ## 效果（真实执行）
@@ -58,6 +64,7 @@ python3 tests/run.py            # 先跑一遍自检，确认环境与契约都�
 
 ```text
 de-ecommerce-visual-designer/
+├── employee.md            # 人读定义卡（12 主字段 + 2 扩展组，由 employee.yaml 生成）
 ├── employee.yaml          # 机器契约（能力清单 + 依赖锁）
 ├── dependencies.yaml      # 对 core 的外部依赖（含版本）
 ├── persona/               # 运行提示词 / 边界 / KPI
